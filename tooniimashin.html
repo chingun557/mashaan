@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pk calculator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body class="q">
+    <script>
+      
+      const ug = document.createElement("p");
+      ug.classList.add("ugnii");
+      ug.innerText = "CALCULATOR";
+
+      const border = document.createElement("div");
+      border.classList.add("q1");
+
+      const display = document.createElement("div");
+      display.classList.add("q2");
+
+      const buttons = document.createElement("div");
+      buttons.classList.add("q3");
+
+      
+      let first = "";
+      let second = "";
+      let action = null;
+
+     
+      function writeNum(n) {
+        display.innerHTML += n;
+      }
+
+      function setAction(op) {
+        first = display.innerHTML;
+        display.innerHTML = "";
+        action = op;
+      }
+
+      function ac() {
+        display.innerHTML = "";
+        first = "";
+        second = "";
+        action = null;
+      }
+
+      function calculate() {
+        second = display.innerHTML;
+
+        let a = Number(first);
+        let b = Number(second);
+
+        if (action === "+") display.innerHTML = a + b;
+        if (action === "-") display.innerHTML = a - b;
+        if (action === "*") display.innerHTML = a * b;
+        if (action === "/") {
+          display.innerHTML = b === 0 ? "Error" : a / b;
+        }
+
+        first = "";
+        second = "";
+        action = null;
+      }
+
+     
+      function btn(text, onClick) {
+        const b = document.createElement("button");
+        b.classList.add("r1");
+        b.innerText = text;
+        b.onclick = onClick;
+        return b;
+      }
+
+      buttons.append(
+        btn("C", ac),
+        btn("(", () => writeNum("(")),
+        btn(")", () => writeNum(")")),
+        btn("/", () => setAction("/")),
+
+        btn("7", () => writeNum(7)),
+        btn("8", () => writeNum(8)),
+        btn("9", () => writeNum(9)),
+        btn("X", () => setAction("*")),
+
+        btn("4", () => writeNum(4)),
+        btn("5", () => writeNum(5)),
+        btn("6", () => writeNum(6)),
+        btn("-", () => setAction("-")),
+
+        btn("1", () => writeNum(1)),
+        btn("2", () => writeNum(2)),
+        btn("3", () => writeNum(3)),
+        btn("+", () => setAction("+")),
+
+        btn("+/-", () => writeNum("-")),
+        btn("0", () => writeNum(0)),
+        btn(".", () => writeNum(".")),
+        btn("=", calculate)
+      );
+
+      
+      border.appendChild(display);
+      border.appendChild(buttons);
+
+      document.body.appendChild(ug);
+      document.body.appendChild(border);
+    </script>
+  </body>
+</html>
